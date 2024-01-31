@@ -21,6 +21,8 @@ export class ExperimentHandlerSolidBench extends ExperimentHandler<ExperimentSol
       configFragmentAux: 'input/config-fragmenter-auxiliary.json',
       configQueries: 'input/config-queries.json',
       configServer: 'input/config-server.json',
+      shapesFolderPath: undefined,
+      generateShapeTree: false,
       validationParamsUrl: Templates.VALIDATION_PARAMS_URL,
       configValidation: 'input/config-validation.json',
       hadoopMemory: '4G',

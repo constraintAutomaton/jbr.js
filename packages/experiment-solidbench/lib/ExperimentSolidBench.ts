@@ -1,8 +1,10 @@
 import * as Path from 'path';
 import * as v8 from 'v8';
 import * as fs from 'fs-extra';
-import type { Experiment, Hook, ITaskContext,
-  DockerResourceConstraints, ICleanTargets, DockerContainerHandler, DockerNetworkHandler } from 'jbr';
+import type {
+  Experiment, Hook, ITaskContext,
+  DockerResourceConstraints, ICleanTargets, DockerContainerHandler, DockerNetworkHandler,
+} from 'jbr';
 import { ProcessHandlerComposite, secureProcessHandler } from 'jbr';
 import { Generator } from 'solidbench/lib/Generator';
 import { readQueries, SparqlBenchmarkRunner, writeBenchmarkResults } from 'sparql-benchmark-runner';
@@ -17,6 +19,8 @@ export class ExperimentSolidBench implements Experiment {
   public readonly configFragmentAux: string;
   public readonly configQueries: string;
   public readonly configServer: string;
+  public readonly shapesFolderPath: string | undefined;
+  public readonly generateShapeTree: boolean | undefined;
   public readonly validationParamsUrl: string;
   public readonly configValidation: string;
   public readonly hadoopMemory: string;
@@ -43,6 +47,8 @@ export class ExperimentSolidBench implements Experiment {
    * @param configFragmentAux
    * @param configQueries
    * @param configServer
+   * @param shapesFolderPath
+   * @param generateShapeTree
    * @param validationParamsUrl
    * @param configValidation
    * @param hadoopMemory
@@ -69,6 +75,8 @@ export class ExperimentSolidBench implements Experiment {
     configFragmentAux: string,
     configQueries: string,
     configServer: string,
+    shapesFolderPath: string|undefined,
+    generateShapeTree: boolean|undefined,
     validationParamsUrl: string,
     configValidation: string,
     hadoopMemory: string,
@@ -94,6 +102,8 @@ export class ExperimentSolidBench implements Experiment {
     this.configFragmentAux = configFragmentAux;
     this.configQueries = configQueries;
     this.configServer = configServer;
+    this.shapesFolderPath = shapesFolderPath;
+    this.generateShapeTree = generateShapeTree;
     this.validationParamsUrl = validationParamsUrl;
     this.configValidation = configValidation;
     this.hadoopMemory = hadoopMemory;
@@ -155,6 +165,8 @@ export class ExperimentSolidBench implements Experiment {
       validationParams: this.validationParamsUrl,
       validationConfig: Path.resolve(context.cwd, this.configValidation),
       hadoopMemory: this.hadoopMemory,
+      generateShapeTree: this.generateShapeTree,
+      shapesFolderPath: this.shapesFolderPath,
     }).generate();
 
     // Replace prefix URLs to correct base URL in queries directory
@@ -237,7 +249,7 @@ export class ExperimentSolidBench implements Experiment {
     await closeProcess();
   }
 
-  public async startServer(context: ITaskContext): Promise<[ DockerContainerHandler, DockerNetworkHandler ] > {
+  public async startServer(context: ITaskContext): Promise<[DockerContainerHandler, DockerNetworkHandler]> {
     // Create shared network
     const networkHandler = await context.docker.networkCreator
       .create({ Name: this.getDockerImageName(context, 'network') });
