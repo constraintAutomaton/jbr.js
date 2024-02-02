@@ -32,7 +32,10 @@
         "lines": 100,
         "statements": 100
       }
-    }
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!shape-tree-in-solid-bench)"
+    ]
   },
   "scripts": {
     "test-changed": "lerna run test --since HEAD",
