@@ -6,7 +6,7 @@ import type {
   DockerResourceConstraints, ICleanTargets, DockerContainerHandler, DockerNetworkHandler,
 } from 'jbr';
 import { ProcessHandlerComposite, secureProcessHandler } from 'jbr';
-import { Generator } from 'solidbench/lib/Generator';
+import { Generator } from 'solidbench-shapetree/lib/Generator';
 import { readQueries, SparqlBenchmarkRunner, writeBenchmarkResults } from 'sparql-benchmark-runner';
 
 /**

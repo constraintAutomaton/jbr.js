@@ -1,33 +1,10 @@
 {
-  "name": "@jbr-experiment/solidbench",
-  "version": "3.0.2",
+  "name": "jbr-solidbench-shapetree",
+  "version": "0.0.0",
   "description": "SolidBench experiment handler for JBR",
   "main": "index.js",
   "typings": "index",
   "lsd:module": true,
-  "author": "Ruben Taelman <rubensworks@gmail.com>",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/rubensworks/jbr.js.git",
-    "directory": "packages/experiment-solidbench"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "bugs": {
-    "url": "https://github.com/rubensworks/jbr.js/issues"
-  },
-  "homepage": "https://github.com/rubensworks/jbr.js#readme",
-  "license": "MIT",
-  "keywords": [
-    "experiment",
-    "solid",
-    "benchmark",
-    "solidbench",
-    "social network",
-    "jbr",
-    "benchmarking"
-  ],
   "files": [
     "lib/**/*.d.ts",
     "lib/**/*.js",
@@ -50,10 +27,7 @@
       "ts",
       "js"
     ],
-    "collectCoverage": true,
-    "transformIgnorePatterns": [
-      "node_modules/(?!shape-tree-in-solid-bench)"
-    ]
+    "collectCoverage": true
   },
   "scripts": {
     "test": "node \"../../node_modules/jest/bin/jest.js\" ${1}",
@@ -71,7 +45,7 @@
     "@types/fs-extra": "^9.0.11",
     "@types/yargs": "^17.0.0",
     "fs-extra": "^10.0.0",
-    "solidbench": "https://github.com/constraintAutomaton/SolidBench.js#feature/shapetree",
+    "solidbench-shapetree": "^1.7.1",
     "sparql-benchmark-runner": "^2.9.4"
   }
 }

@@ -9,7 +9,7 @@ import { TestLogger } from '../../jbr/test/TestLogger';
 import { ExperimentSolidBench } from '../lib/ExperimentSolidBench';
 
 let generatorGenerate: any;
-jest.mock('solidbench/lib/Generator', () => ({
+jest.mock('solidbench-shapetree/lib/Generator', () => ({
   Generator: jest.fn().mockImplementation(() => ({
     generate: generatorGenerate,
   })),

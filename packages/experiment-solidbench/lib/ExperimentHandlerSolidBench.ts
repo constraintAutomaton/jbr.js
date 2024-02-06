@@ -2,7 +2,7 @@ import * as Path from 'path';
 import * as fs from 'fs-extra';
 import type { IExperimentPaths } from 'jbr';
 import { ExperimentHandler } from 'jbr';
-import { Templates } from 'solidbench';
+import { Templates } from 'solidbench-shapetree';
 import { ExperimentSolidBench } from './ExperimentSolidBench';
 
 /**
