@@ -21,6 +21,7 @@ export class ExperimentSolidBench implements Experiment {
   public readonly configServer: string;
   public readonly shapesFolderPath: string | undefined;
   public readonly generateShapeTree: boolean | undefined;
+  public readonly shapeTreeWithJBR: boolean|undefined;
   public readonly validationParamsUrl: string;
   public readonly configValidation: string;
   public readonly hadoopMemory: string;
@@ -77,6 +78,7 @@ export class ExperimentSolidBench implements Experiment {
     configServer: string,
     shapesFolderPath: string|undefined,
     generateShapeTree: boolean|undefined,
+    shapeTreeWithJBR: boolean|undefined,
     validationParamsUrl: string,
     configValidation: string,
     hadoopMemory: string,
@@ -104,6 +106,7 @@ export class ExperimentSolidBench implements Experiment {
     this.configServer = configServer;
     this.shapesFolderPath = shapesFolderPath;
     this.generateShapeTree = generateShapeTree;
+    this.shapeTreeWithJBR = shapeTreeWithJBR;
     this.validationParamsUrl = validationParamsUrl;
     this.configValidation = configValidation;
     this.hadoopMemory = hadoopMemory;
@@ -167,6 +170,7 @@ export class ExperimentSolidBench implements Experiment {
       hadoopMemory: this.hadoopMemory,
       generateShapeTree: this.generateShapeTree,
       shapesFolderPath: this.shapesFolderPath,
+      shapeTreeWithJBR: this.shapeTreeWithJBR,
     }).generate();
 
     // Replace prefix URLs to correct base URL in queries directory

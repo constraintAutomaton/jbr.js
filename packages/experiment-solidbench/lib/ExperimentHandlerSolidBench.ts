@@ -23,6 +23,7 @@ export class ExperimentHandlerSolidBench extends ExperimentHandler<ExperimentSol
       configServer: 'input/config-server.json',
       shapesFolderPath: undefined,
       generateShapeTree: false,
+      shapeTreeWithJBR: true,
       validationParamsUrl: Templates.VALIDATION_PARAMS_URL,
       configValidation: 'input/config-validation.json',
       hadoopMemory: '4G',
