@@ -129,6 +129,9 @@ export class TaskGenerateCombinations {
           Path.join(destinationDirectory, entry.name),
           mapper,
         );
+      }else if(entry.isSymbolicLink()) {
+        const link = await fs.readlink(Path.join(sourceDirectory, entry.name));
+        await fs.symlink( link, Path.join(destinationDirectory, entry.name));
       }
     }
   }
