@@ -1,7 +1,7 @@
 import Path from 'path';
 import type {
   ITaskContext, DockerResourceConstraints,
-  ProcessHandler, Hook, IHookStartOptions, ICleanTargets
+  ProcessHandler, Hook, IHookStartOptions, ICleanTargets,
 } from 'jbr';
 
 /**
@@ -49,7 +49,7 @@ export class HookSparqlEndpointComunica implements Hook {
     await context.docker.imageBuilder.build({
       cwd: context.experimentPaths.root,
       dockerFile: this.dockerfileClient,
-      auxiliaryFiles: [this.configClient],
+      auxiliaryFiles: [ this.configClient ],
       imageName: this.getDockerImageName(context),
       buildArgs: {
         CONFIG_CLIENT: this.configClient,
