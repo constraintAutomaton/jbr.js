@@ -64,6 +64,7 @@ describe('HookSparqlEndpointComunica', () => {
         imageName: 'IMG-sparql-endpoint-comunica',
         buildArgs: {
           CONFIG_CLIENT: 'input/config-client.json',
+          CONTEXT_CLIENT: 'input/context-client.json',
           LOG_LEVEL: 'info',
           MAX_MEMORY: '8192',
           QUERY_TIMEOUT: '300',
