@@ -59,7 +59,8 @@
     "validate": "npm ls"
   },
   "devDependencies": {
-    "jbr": "^3.0.2"
+    "jbr": "^3.0.2",
+    "undici-types": "^6.10.0"
   },
   "peerDependencies": {
     "jbr": ">=2.0.0"
