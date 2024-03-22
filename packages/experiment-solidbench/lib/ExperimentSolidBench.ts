@@ -180,7 +180,7 @@ export class ExperimentSolidBench implements Experiment {
 
   public async run(context: ITaskContext): Promise<void> {
     // Prevent BodyTimeoutError: Body Timeout Error UND_ERR_BODY_TIMEOUT
-    setGlobalDispatcher(new Agent({ bodyTimeout: 900e3 }));
+    setGlobalDispatcher(new Agent({ bodyTimeout: 0 }));
 
     // Start server
     const [ serverHandler, networkHandler ] = await this.startServer(context);
