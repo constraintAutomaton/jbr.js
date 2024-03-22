@@ -1,11 +1,14 @@
 import * as Path from 'path';
 import * as v8 from 'v8';
 import * as fs from 'fs-extra';
-import type { Experiment, Hook, ITaskContext,
-  DockerResourceConstraints, ICleanTargets, DockerContainerHandler, DockerNetworkHandler } from 'jbr';
+import type {
+  Experiment, Hook, ITaskContext,
+  DockerResourceConstraints, ICleanTargets, DockerContainerHandler, DockerNetworkHandler
+} from 'jbr';
 import { ProcessHandlerComposite, secureProcessHandler } from 'jbr';
 import { Generator } from 'solidbench/lib/Generator';
 import { readQueries, SparqlBenchmarkRunner, writeBenchmarkResults } from 'sparql-benchmark-runner';
+import { setGlobalDispatcher, Agent } from 'undici';
 
 /**
  * An experiment instance for the SolidBench social network benchmark.
@@ -164,7 +167,7 @@ export class ExperimentSolidBench implements Experiment {
     await context.docker.imageBuilder.build({
       cwd: context.experimentPaths.root,
       dockerFile: this.dockerfileServer,
-      auxiliaryFiles: [ this.configServer ],
+      auxiliaryFiles: [this.configServer],
       imageName: this.getDockerImageName(context, 'server'),
       buildArgs: {
         CONFIG_SERVER: this.configServer,
@@ -176,12 +179,15 @@ export class ExperimentSolidBench implements Experiment {
   }
 
   public async run(context: ITaskContext): Promise<void> {
+    // Prevent BodyTimeoutError: Body Timeout Error UND_ERR_BODY_TIMEOUT
+    setGlobalDispatcher(new Agent({ bodyTimeout: 900e3 }));
+
     // Start server
-    const [ serverHandler, networkHandler ] = await this.startServer(context);
+    const [serverHandler, networkHandler] = await this.startServer(context);
 
     // Setup SPARQL endpoint
     const network = networkHandler.network.id;
-    const endpointProcessHandler = await this.hookSparqlEndpoint.start(context, { docker: { network }});
+    const endpointProcessHandler = await this.hookSparqlEndpoint.start(context, { docker: { network } });
 
     const processHandler = new ProcessHandlerComposite([
       serverHandler,
@@ -229,7 +235,7 @@ export class ExperimentSolidBench implements Experiment {
       Path.join(resultsOutput, 'query-times.csv'),
       this.queryRunnerRecordTimestamps,
       [
-        ...this.queryRunnerRecordHttpRequests ? [ 'httpRequests' ] : [],
+        ...this.queryRunnerRecordHttpRequests ? ['httpRequests'] : [],
       ],
     );
 
@@ -237,7 +243,7 @@ export class ExperimentSolidBench implements Experiment {
     await closeProcess();
   }
 
-  public async startServer(context: ITaskContext): Promise<[ DockerContainerHandler, DockerNetworkHandler ] > {
+  public async startServer(context: ITaskContext): Promise<[DockerContainerHandler, DockerNetworkHandler]> {
     // Create shared network
     const networkHandler = await context.docker.networkCreator
       .create({ Name: this.getDockerImageName(context, 'network') });
@@ -266,7 +272,7 @@ export class ExperimentSolidBench implements Experiment {
       statsFilePath: Path.join(context.experimentPaths.output, 'stats-server.csv'),
     });
 
-    return [ serverHandler, networkHandler ];
+    return [serverHandler, networkHandler];
   }
 
   public async clean(context: ITaskContext, cleanTargets: ICleanTargets): Promise<void> {
