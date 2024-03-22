@@ -3,7 +3,7 @@ import * as v8 from 'v8';
 import * as fs from 'fs-extra';
 import type {
   Experiment, Hook, ITaskContext,
-  DockerResourceConstraints, ICleanTargets, DockerContainerHandler, DockerNetworkHandler
+  DockerResourceConstraints, ICleanTargets, DockerContainerHandler, DockerNetworkHandler,
 } from 'jbr';
 import { ProcessHandlerComposite, secureProcessHandler } from 'jbr';
 import { Generator } from 'solidbench/lib/Generator';
@@ -167,7 +167,7 @@ export class ExperimentSolidBench implements Experiment {
     await context.docker.imageBuilder.build({
       cwd: context.experimentPaths.root,
       dockerFile: this.dockerfileServer,
-      auxiliaryFiles: [this.configServer],
+      auxiliaryFiles: [ this.configServer ],
       imageName: this.getDockerImageName(context, 'server'),
       buildArgs: {
         CONFIG_SERVER: this.configServer,
@@ -183,11 +183,11 @@ export class ExperimentSolidBench implements Experiment {
     setGlobalDispatcher(new Agent({ bodyTimeout: 900e3 }));
 
     // Start server
-    const [serverHandler, networkHandler] = await this.startServer(context);
+    const [ serverHandler, networkHandler ] = await this.startServer(context);
 
     // Setup SPARQL endpoint
     const network = networkHandler.network.id;
-    const endpointProcessHandler = await this.hookSparqlEndpoint.start(context, { docker: { network } });
+    const endpointProcessHandler = await this.hookSparqlEndpoint.start(context, { docker: { network }});
 
     const processHandler = new ProcessHandlerComposite([
       serverHandler,
@@ -235,7 +235,7 @@ export class ExperimentSolidBench implements Experiment {
       Path.join(resultsOutput, 'query-times.csv'),
       this.queryRunnerRecordTimestamps,
       [
-        ...this.queryRunnerRecordHttpRequests ? ['httpRequests'] : [],
+        ...this.queryRunnerRecordHttpRequests ? [ 'httpRequests' ] : [],
       ],
     );
 
@@ -272,7 +272,7 @@ export class ExperimentSolidBench implements Experiment {
       statsFilePath: Path.join(context.experimentPaths.output, 'stats-server.csv'),
     });
 
-    return [serverHandler, networkHandler];
+    return [ serverHandler, networkHandler ];
   }
 
   public async clean(context: ITaskContext, cleanTargets: ICleanTargets): Promise<void> {

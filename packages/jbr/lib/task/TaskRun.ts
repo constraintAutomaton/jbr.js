@@ -20,7 +20,7 @@ export class TaskRun {
     await ExperimentLoader.requireExperimentPrepared(this.context.experimentPaths.root);
     const { experiments, experimentPathsArray } = await (await ExperimentLoader.build(this.context.mainModulePath))
       .instantiateExperiments(this.context.experimentName, this.context.experimentPaths.root);
-    for (const [i, experiment] of experiments.entries()) {
+    for (const [ i, experiment ] of experiments.entries()) {
       if (this.combination === undefined || this.combination === i) {
         // Log status
         if (experiments.length > 1) {
@@ -28,7 +28,8 @@ export class TaskRun {
         }
         try {
           await experiment.run({ ...this.context, experimentPaths: experimentPathsArray[i] });
-        } catch (error) {
+          // eslint-disable-next-line @typescript-eslint/no-implicit-any-catch
+        } catch (error: any) {
           this.context.logger.error(error);
         }
       }
