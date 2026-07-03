@@ -1,0 +1,62 @@
+{
+  "name": "@jbr-experiment/large-rdf-bench",
+  "version": "1.0.0",
+  "description": "Large RDF Bench experiment handler for JBR",
+  "main": "index.js",
+  "typings": "index",
+  "lsd:module": true,
+  "repository": "https://github.com/rubensworks/jbr.js.git",
+  "author": "Bryan-Elliott Tam",
+  "license": "MIT",
+  "private": false,
+  "keywords": [
+    "experiment",
+    "bsbm",
+    "jbr",
+    "benchmarking"
+  ],
+  "files": [
+    "lib/**/*.d.ts",
+    "lib/**/*.js",
+    "lib/templates",
+    "index.d.ts",
+    "index.ts",
+    "components"
+  ],
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "../../tsconfig.json"
+      }
+    },
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "testRegex": "(/test/.*|(\\.|/)(test|spec))\\.ts$",
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "collectCoverage": true
+  },
+  "scripts": {
+    "test": "node \"../../node_modules/jest/bin/jest.js\" ${1}",
+    "test-watch": "node \"../../node_modules/jest/bin/jest.js\" ${1} --watch",
+    "build": "node \"../../node_modules/typescript/bin/tsc\"",
+    "validate": "npm ls"
+  },
+  "devDependencies": {
+    "jbr": "^6.0.0"
+  },
+  "peerDependencies": {
+    "jbr": ">=2.0.0"
+  },
+  "dependencies": {
+      "@types/fs-extra": "^9.0.11",
+      "@types/unzipper": "^0.10.0",
+      "@types/yargs": "^17.0.0",
+      "fs-extra": "^10.0.0",
+      "unzipper": "^0.12.3",
+      "sparql-benchmark-runner": "^5.0.0"
+    }
+}
